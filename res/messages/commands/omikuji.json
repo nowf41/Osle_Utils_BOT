@@ -1,0 +1,8 @@
+{
+    "whenDrawOmikuji": {
+        "firstMessage": "おみくじを引きます。"
+    },
+    "errorMessage": {
+        "alreadyDrewOmikuji": "すでに今日の分のおみくじは終了しました。\nBOTの再起動が実行される午前3時頃にカウントがリセットされます。\nそれまで、しばらくお待ち下さい。\n"
+    }
+}
