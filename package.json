@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "discord.js": "^14.14.1"
+  },
+  "name": "osle_utils_bot_for_discord",
+  "version": "1.0.0",
+  "description": "This is an utility bot for discord.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ."
+  },
+  "author": "nowf41.github.io",
+  "license": "MIT"
+}
