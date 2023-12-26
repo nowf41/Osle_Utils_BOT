@@ -36,8 +36,7 @@ module.exports = {
                 .setColor('#932e40')
                 .setTitle(`${diceCount}d${diceSize}を振りました。`)
                 .setDescription(embedText)
-            await interaction.reply({content: 'サイコロを振ります🎲'});
-            await interaction.editReply({embeds: [message]});
+            await interaction.reply({content: 'サイコロを振ります🎲', embeds: [message]});
         }
 }
 
