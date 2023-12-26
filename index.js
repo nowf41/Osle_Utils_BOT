@@ -1,9 +1,13 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
+const { Client, Collection, GatewayIntentBits } = require('discord.js');
 const { token } = require('./config.json');
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [
+	GatewayIntentBits.Guilds,
+	GatewayIntentBits.GuildMessages,
+	GatewayIntentBits.MessageContent,
+] });
 
 client.commands = new Collection();
 
@@ -40,6 +44,19 @@ for (const file of eventFiles) {
 	}
 }
 
+// THIS IS AN TEST CODE FOR RESOLVE AN ISSUE. IF YOU FOUND THIS CODE ACTIVATED IN RELEASE VERSION,
+// PLEASE REPORT ME(https://nowf41.github.io/).
+// THE ISSUE HAS RESOLVED. DO **NOT** ACTIVATE THIS CODE BECAUSE WHEN RUN THIS CODE, THE BOT WILL
+// MAKE DUPLICATE REACTS.
+
+// THIS CODE IS GOING TO BE DELETED IN FUTURE VERSION.
+/*
+client.on(Events.MessageCreate, async message => {
+	console.log('Event messageCreate Was Happend. Message.content: ', message.content);
+	if(message.author.bot) return;
+	if(message.content.match(/^o\/ping/)) { await message.reply('Pong!').then(() => console.log('sent pong.')) };
+})
+*/
 
 // BOTログイン
 client.login(token);
