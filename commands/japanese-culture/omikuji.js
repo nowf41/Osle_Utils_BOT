@@ -28,19 +28,28 @@ module.exports = {
         .setName('omikuji')
         .setDescription('draw a Omikuji.')
         .setDescriptionLocalization('ja', 'おみくじを引きます。'),
-        async execute(interaction) {
+        async execute(interaction, calledBy = 'interactionCreate') {
             const luckIndex = Math.floor(Math.random() * lucks.length);
-            if(!alreadyPlayedPeople.includes(interaction.user.id)){
-                alreadyPlayedPeople += interaction.user.id;
-            } else {
-                interaction.reply({content: require(messagesFilePath).errorMessage.alreadyDrewOmikuji, ephemeral: true});
-                return;
+            if(calledBy === 'interactionCreate') {
+                if(!alreadyPlayedPeople.includes(interaction.user.id)){
+                    alreadyPlayedPeople += interaction.user.id;
+                } else {
+                    interaction.reply({content: require(messagesFilePath).errorMessage.alreadyDrewOmikuji, ephemeral: true});
+                    return;
+                }
+            } else if(calledBy === 'messageCreate') {
+                if(!alreadyPlayedPeople.includes(interaction.author.id)){
+                    alreadyPlayedPeople += interaction.author.id;
+                } else {
+                    interaction.reply({content: require(messagesFilePath).errorMessage.alreadyDrewOmikuji, ephemeral: true});
+                    return;
+                }
             }
-            await interaction.reply(require(messagesFilePath).whenDrawOmikuji.firstMessage);
-            setTimeout(async () => await interaction.editReply({embeds: [generateOmikujiEmbed(luckIndex, 0)]}), 500);
-            setTimeout(async () => await interaction.editReply({embeds: [generateOmikujiEmbed(luckIndex, 1)]}), 2000);
-            setTimeout(async () => await interaction.editReply({embeds: [generateOmikujiEmbed(luckIndex, 2)]}), 3500);
-            setTimeout(async () => await interaction.editReply({embeds: [generateOmikujiEmbed(luckIndex, 3)]}), 5000);
-            setTimeout(async () => await interaction.editReply({embeds: [generateOmikujiEmbed(luckIndex, 4)]}), 6500);
+            const reply = await interaction.reply(require(messagesFilePath).whenDrawOmikuji.firstMessage);
+            setTimeout(async () => await reply.edit({embeds: [generateOmikujiEmbed(luckIndex, 0)]}), 500);
+            setTimeout(async () => await reply.edit({embeds: [generateOmikujiEmbed(luckIndex, 1)]}), 2000);
+            setTimeout(async () => await reply.edit({embeds: [generateOmikujiEmbed(luckIndex, 2)]}), 3500);
+            setTimeout(async () => await reply.edit({embeds: [generateOmikujiEmbed(luckIndex, 3)]}), 5000);
+            setTimeout(async () => await reply.edit({embeds: [generateOmikujiEmbed(luckIndex, 4)]}), 6500);
         }
 }
