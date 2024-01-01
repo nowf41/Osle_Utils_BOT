@@ -44,19 +44,7 @@ for (const file of eventFiles) {
 	}
 }
 
-// THIS IS AN TEST CODE FOR RESOLVE AN ISSUE. IF YOU FOUND THIS CODE ACTIVATED IN RELEASE VERSION,
-// PLEASE REPORT ME(https://nowf41.github.io/).
-// THE ISSUE HAS RESOLVED. DO **NOT** ACTIVATE THIS CODE BECAUSE WHEN RUN THIS CODE, THE BOT WILL
-// MAKE DUPLICATE REACTS.
-
-// THIS CODE IS GOING TO BE DELETED IN FUTURE VERSION.
-/*
-client.on(Events.MessageCreate, async message => {
-	console.log('Event messageCreate Was Happend. Message.content: ', message.content);
-	if(message.author.bot) return;
-	if(message.content.match(/^o\/ping/)) { await message.reply('Pong!').then(() => console.log('sent pong.')) };
-})
-*/
+// THE CODE HAS ALREADY MOVED TO ./events/MessageCreate.js
 
 // BOTログイン
 client.login(token);
