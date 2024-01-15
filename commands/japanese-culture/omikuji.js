@@ -1,11 +1,13 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const lucks = ['大吉', '吉', '中吉', '小吉', '末吉', '凶', '大凶'];
 const omikuji_jinoBun_base = [
-    '参拝を済ませ、おみくじを引くことにした。\n',
-    '硬貨が小気味よい音を立て落ちていく。\n',
-    '巫女さんに見守られながら、中から一枚の紙を引き出した。\n',
-    'そこには"""LUCKTEXT"""と書かれていた。\n',
-    '引いてくれてありがとう！また明日挑戦してね！\n'
+    '巫女さんが見守る中、おみくじ代を入れた...\n\n',
+    '100円硬貨が箱の中に落ちる音が心地いい...\n\n',
+    '(さて、どれにしようか...)\n\n',
+    '目を閉じて良いものが出てくることを祈りながらおみくじを選んだ。\n\n',
+    'そして選んだおみくじを開いた。\n\n',
+    '',
+    'おみくじを引いてくれてありがとう！また挑戦してね！\n\n'
 ];
 let alreadyPlayedPeople = [];
 const messagesFilePath = '../../res/messages/commands/omikuji.json'
@@ -14,11 +16,11 @@ function generateOmikujiEmbed(luck /* 運勢インデックス */, index /* 何�
     const luckText = lucks[luck];
     if(!luckText) throw new Error('Unknown luck index');
     let omikuji_jinoBun_cache = omikuji_jinoBun_base;
-    omikuji_jinoBun_cache[3] = 'そこには`' + luckText + '`と書かれていた。\n'
+    omikuji_jinoBun_cache[5] = 'そこには、`' + luckText + '`と書かれていた。\n\n'
     let embedText = '';
     for(let i = 0; i <= index; i++) embedText += omikuji_jinoBun_cache[i];
     const embed = new EmbedBuilder()
-        .setColor('Blue')
+        .setColor('Yellow')
         .setDescription(embedText);
     return embed;
 }
@@ -34,7 +36,7 @@ module.exports = {
                 if(!alreadyPlayedPeople.includes(interaction.user.id)){
                     alreadyPlayedPeople += interaction.user.id;
                 } else {
-                    interaction.reply({content: require(messagesFilePath).errorMessage.alreadyDrewOmikuji, ephemeral: true});
+                    interaction.reply(`${interaction.member}->今日はもうおみくじ引いたでしょ！Botの再起動が1日おきに入るから入ったときにまた引かせてあげる！ `);
                     return;
                 }
             } else if(calledBy === 'messageCreate') {
@@ -45,11 +47,13 @@ module.exports = {
                     return;
                 }
             }
-            const reply = await interaction.reply(require(messagesFilePath).whenDrawOmikuji.firstMessage);
-            setTimeout(async () => await reply.edit({embeds: [generateOmikujiEmbed(luckIndex, 0)]}), 500);
-            setTimeout(async () => await reply.edit({embeds: [generateOmikujiEmbed(luckIndex, 1)]}), 2000);
-            setTimeout(async () => await reply.edit({embeds: [generateOmikujiEmbed(luckIndex, 2)]}), 3500);
-            setTimeout(async () => await reply.edit({embeds: [generateOmikujiEmbed(luckIndex, 3)]}), 5000);
-            setTimeout(async () => await reply.edit({embeds: [generateOmikujiEmbed(luckIndex, 4)]}), 6500);
+            const reply = await interaction.reply(`${interaction.member}->`);
+            setTimeout(async () => await reply.edit({embeds: [generateOmikujiEmbed(luckIndex, 0)]}), 2000);
+            setTimeout(async () => await reply.edit({embeds: [generateOmikujiEmbed(luckIndex, 1)]}), 4000);
+            setTimeout(async () => await reply.edit({embeds: [generateOmikujiEmbed(luckIndex, 2)]}), 6000);
+            setTimeout(async () => await reply.edit({embeds: [generateOmikujiEmbed(luckIndex, 3)]}), 8000);
+            setTimeout(async () => await reply.edit({embeds: [generateOmikujiEmbed(luckIndex, 4)]}), 10000);
+            setTimeout(async () => await reply.edit({embeds: [generateOmikujiEmbed(luckIndex, 5)]}), 12000);
+            setTimeout(async () => await reply.edit({embeds: [generateOmikujiEmbed(luckIndex, 6)]}), 14000);
         }
 }
